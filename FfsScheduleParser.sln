@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FfsScheduleParser", "FfsScheduleParser\FfsScheduleParser.csproj", "{B8FE596A-1FB8-458E-92D4-DBCBCC448FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FfsScheduleParserTests", "FfsScheduleParserTests\FfsScheduleParserTests.csproj", "{84205199-BA47-4C9C-9589-7CCE3B768400}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8FE596A-1FB8-458E-92D4-DBCBCC448FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FE596A-1FB8-458E-92D4-DBCBCC448FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FE596A-1FB8-458E-92D4-DBCBCC448FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FE596A-1FB8-458E-92D4-DBCBCC448FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84205199-BA47-4C9C-9589-7CCE3B768400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84205199-BA47-4C9C-9589-7CCE3B768400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84205199-BA47-4C9C-9589-7CCE3B768400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84205199-BA47-4C9C-9589-7CCE3B768400}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
