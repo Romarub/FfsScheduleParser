@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
+using Autofac;
+using FfsScheduleParser.Domain;
 using FfsScheduleParser.Infrastructure;
 using FfsScheduleParser.Services;
 
@@ -8,27 +11,27 @@ namespace FfsScheduleParser
 {
     class Program
     {
+        private static IContainer Container { get; set; }
         static void Main()
         {
-            var webClient = new WebClientWrapper();
-            ITrainingSessionsService sessionsService = new TrainingSessionsService(webClient);
-            const string parsingExceptionMessage = "Wrong time format";
-            const string shiftStartTimeConfigKey = "ShiftStartTime";
-            const string shiftLengthConfigKey = "ShiftLength";
+            RegisterServices();
+            using (var scope = Container.BeginLifetimeScope())
+            {
+                var workingShift = scope.Resolve<IWorkingShiftService>().CreateShiftWithConfigParams(DateTime.Today);
+                scope.Resolve<IStatisticService>().WriteStatisticToCsv(
+                    workingShift.Statistic,
+                    ConfigurationManager.AppSettings.Get("CsvFilePath"));
+            }
+        }
 
-            var shiftStartTime = shiftStartTimeConfigKey.ParseTimeSpan(parsingExceptionMessage);
-            var shiftLength = shiftLengthConfigKey.ParseTimeSpan(parsingExceptionMessage);
-            var requestUrl = ConfigurationManager.AppSettings.Get("UrlForSessionRequest");
-            var shiftSessions = sessionsService
-                .GetSessionsForIntervalByEndTime(requestUrl, DateTime.Today.Add(shiftStartTime), DateTime.Today.Add(shiftStartTime + shiftLength))
-                .ToArray();
-
-            var simulators = ConfigurationManager.AppSettings["Simulators"]?.Split(',');
-            IStatisticService statisticService = new StatisticService();
-            var shiftStatistic = statisticService.GetSessionsStatistic(shiftSessions, simulators);
-            statisticService.WriteStatisticToCsv(
-                shiftStatistic.ToArray(),
-                ConfigurationManager.AppSettings.Get("CsvFilePath"));
+        private static void RegisterServices()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<WebClientWrapper>().As<IWebClientWrapper>();
+            builder.RegisterType<TrainingSessionsService>().As<ITrainingSessionsService>();
+            builder.RegisterType<StatisticService>().As<IStatisticService>();
+            builder.RegisterType<WorkingShiftService>().As<IWorkingShiftService>();
+            Container = builder.Build();
         }
     }
 }
