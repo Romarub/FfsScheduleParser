@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Configuration;
 using Autofac;
-using FfsScheduleParser.Domain;
 using FfsScheduleParser.Infrastructure;
 using FfsScheduleParser.Services;
 
