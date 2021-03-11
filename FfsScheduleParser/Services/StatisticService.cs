@@ -31,9 +31,9 @@ namespace FfsScheduleParser.Services
         {
             var tableRows = statisticTableRows.ToList();
             RenameSimulatorsForCsvFormat(tableRows);
-            using var writer = new StreamWriter(filePath ?? throw new ArgumentNullException());
+            using var writer = new StreamWriter(filePath ?? throw new ArgumentNullException(nameof(filePath)));
             using var csv = new CsvWriter(writer, Configuration.Csv);
-            csv.Context.TypeConverterOptionsCache.AddOptions<TimeSpan>(Configuration.CsvConverterOptions);
+            csv.Context.TypeConverterOptionsCache.AddOptions<TimeSpan>(Configuration.CsvTimeFormatConverterOptions);
             csv.WriteRecords(tableRows);
         }
 

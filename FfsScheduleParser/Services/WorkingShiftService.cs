@@ -24,7 +24,7 @@ namespace FfsScheduleParser.Services
         {
             var shiftStartTime = ShiftStartTimeConfigKey.ParseTimeSpan(ParsingTimeExceptionMessage);
             var shiftLength = ShiftLengthConfigKey.ParseTimeSpan(ParsingTimeExceptionMessage);
-            var shiftSessions = _sessionsService.GetSessionsForIntervalByEndTime(
+            var shiftSessions = _sessionsService.GetTrainingSessionsForIntervalByEndTime(
                 ConfigurationManager.AppSettings.Get("UrlForSessionRequest"),
                 startDate.Add(shiftStartTime),
                 startDate.Add(shiftStartTime + shiftLength))

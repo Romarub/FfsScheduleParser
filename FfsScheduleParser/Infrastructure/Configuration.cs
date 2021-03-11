@@ -7,13 +7,13 @@ namespace FfsScheduleParser.Infrastructure
 {
     public static class Configuration
     {
-        public static CsvConfiguration Csv { get; set; } = new(CultureInfo.InvariantCulture)
+        public static CsvConfiguration Csv { get; } = new(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = false,
             Delimiter = ", "
         };
 
-        public static TypeConverterOptions CsvConverterOptions { get; set; } = new()
+        public static TypeConverterOptions CsvTimeFormatConverterOptions { get; } = new()
             {Formats = new[] {ConfigurationManager.AppSettings.Get("CsvTimeFormat")}};
     }
 }
