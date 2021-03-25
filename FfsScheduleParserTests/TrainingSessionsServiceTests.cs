@@ -54,8 +54,11 @@ namespace FfsScheduleParserTests
             var sessionsService = new TrainingSessionsService(webClientMock.Object);
 
 
-            var sessions = sessionsService.GetTrainingSessionsForIntervalByEndTime(RequestAddress,
-                trainingDate.Add(startOfInterval), trainingDate.Add(startOfInterval + intervalLength)).ToArray();
+            var sessions = sessionsService.GetSessionsForArincMetrics(
+                RequestAddress,
+                trainingDate.Add(startOfInterval),
+                trainingDate.Add(startOfInterval + intervalLength))
+                .ToArray();
 
 
             Assert.AreEqual(1, sessions.Length);
