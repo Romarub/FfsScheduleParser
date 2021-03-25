@@ -9,25 +9,32 @@ namespace FfsScheduleParser.Services
     public class WorkingShiftService : IWorkingShiftService
     {
         private readonly ITrainingSessionsService _sessionsService;
-        private readonly IStatisticService _statisticService;
+        private readonly IDocumentsService _documentsService;
         private const string ParsingTimeExceptionMessage = "Wrong time format";
         private const string ShiftStartTimeConfigKey = "ShiftStartTime";
         private const string ShiftLengthConfigKey = "ShiftLength";
 
-        public WorkingShiftService(ITrainingSessionsService sessionsService, IStatisticService statisticService)
+        public WorkingShiftService(ITrainingSessionsService sessionsService, IDocumentsService documentsService)
         {
             _sessionsService = sessionsService;
-            _statisticService = statisticService;
+            _documentsService = documentsService;
         }
 
         public WorkingShift CreateShiftWithConfigParams(DateTime startDate)
         {
             var shiftStartTime = ShiftStartTimeConfigKey.ParseTimeSpan(ParsingTimeExceptionMessage);
             var shiftLength = ShiftLengthConfigKey.ParseTimeSpan(ParsingTimeExceptionMessage);
-            var shiftSessions = _sessionsService.GetTrainingSessionsForIntervalByEndTime(
+            var shiftStart = startDate.Add(shiftStartTime);
+            var shiftEnd = startDate.Add(shiftStartTime + shiftLength);
+            var shiftSessions = _sessionsService.GetSessionsForArincMetrics(
                 ConfigurationManager.AppSettings.Get("UrlForSessionRequest"),
-                startDate.Add(shiftStartTime),
-                startDate.Add(shiftStartTime + shiftLength))
+                shiftStart,
+                shiftEnd)
+                .ToArray();
+            var sessionsForLogs = _sessionsService.GetSessionsForLogs(
+                ConfigurationManager.AppSettings.Get("UrlForSessionRequest"),
+                shiftStart,
+                shiftEnd)
                 .ToArray();
             var simulators = ConfigurationManager.AppSettings["Simulators"]?.Split(',');
             return new WorkingShift
@@ -35,7 +42,8 @@ namespace FfsScheduleParser.Services
                 StartDate = DateTime.Today,
                 ShiftLength = shiftLength,
                 Sessions = shiftSessions,
-                Statistic = _statisticService.GetSessionsStatistic(shiftSessions, simulators)
+                Statistic = _documentsService.GetSessionsStatistic(shiftSessions, simulators),
+                ShiftLogs = _documentsService.GetShiftLogs(sessionsForLogs, shiftEnd)
             };
         }
     }

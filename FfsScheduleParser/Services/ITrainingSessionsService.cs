@@ -6,6 +6,7 @@ namespace FfsScheduleParser.Services
 {
     public interface ITrainingSessionsService
     {
-        IEnumerable<TrainingSession> GetTrainingSessionsForIntervalByEndTime(string requestUrl, DateTime start, DateTime end);
+        IEnumerable<TrainingSession> GetSessionsForArincMetrics(string requestUrl, DateTime start, DateTime end);
+        IEnumerable<TrainingSession> GetSessionsForLogs(string requestUrl, DateTime start, DateTime end);
     }
 }

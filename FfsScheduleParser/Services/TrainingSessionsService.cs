@@ -16,14 +16,21 @@ namespace FfsScheduleParser.Services
             _webClient = webClient;
         }
 
-        public IEnumerable<TrainingSession> GetTrainingSessionsForIntervalByEndTime(string requestUrl, DateTime start, DateTime end)
+        public IEnumerable<TrainingSession> GetSessionsForArincMetrics(string requestUrl, DateTime start, DateTime end)
         {
             var sessionsJson = _webClient.DownloadString(requestUrl ?? throw new ArgumentNullException());
 
             return JsonConvert.DeserializeObject<List<TrainingSession>>(sessionsJson)
                 .Where(session => session.Status == string.Empty)
-                .Where(session => session.EndDateTime >= start &&
-                                  session.EndDateTime < end);
+                .Where(session => session.EndDateTime >= start && session.EndDateTime < end);
+        }
+
+        public IEnumerable<TrainingSession> GetSessionsForLogs(string requestUrl, DateTime start, DateTime end)
+        {
+            var sessionsJson = _webClient.DownloadString(requestUrl ?? throw new ArgumentNullException());
+            return JsonConvert.DeserializeObject<List<TrainingSession>>(sessionsJson)
+                .Where(session => session.Status == string.Empty)
+                .Where(session => session.StartDateTime > start && session.StartDateTime <= end);
         }
     }
 }
