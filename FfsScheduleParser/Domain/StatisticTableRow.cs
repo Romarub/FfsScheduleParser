@@ -8,8 +8,8 @@ namespace FfsScheduleParser.Domain
     {
         public string Simulator { get; set; }
         public int NumberOfSessions { get; set; }
-        public TimeSpan PlannedTime { get; set; }
-        public TimeSpan AchievedTime { get; set; }
+        public string PlannedTime { get; set; }
+        public string AchievedTime { get; set; }
 
         public static StatisticTableRow CreateStatisticTableRow(
             string simulator,
@@ -20,13 +20,14 @@ namespace FfsScheduleParser.Domain
             plannedTime = trainingSessions
                 .Aggregate(plannedTime,
                     (current, session) => current + session.EndDateTime.Subtract(session.StartDateTime));
+            var timeSpanInHoursMinutes = $"{plannedTime.TotalHours:00}:" + $"{plannedTime.Minutes:00}";
 
             return new StatisticTableRow
             {
                 Simulator = simulator,
                 NumberOfSessions = trainingSessions.Count,
-                PlannedTime = plannedTime,
-                AchievedTime = plannedTime
+                PlannedTime = timeSpanInHoursMinutes,
+                AchievedTime = timeSpanInHoursMinutes
             };
         }
     }
