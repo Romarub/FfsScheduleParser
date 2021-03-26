@@ -27,12 +27,12 @@ namespace FfsScheduleParser.Services
             var shiftStart = startDate.Add(shiftStartTime);
             var shiftEnd = startDate.Add(shiftStartTime + shiftLength);
             var shiftSessions = _sessionsService.GetSessionsForArincMetrics(
-                ConfigurationManager.AppSettings.Get("UrlForSessionRequest"),
+                ConfigurationManager.AppSettings.Get("UriForSessionRequest"),
                 shiftStart,
                 shiftEnd)
                 .ToArray();
             var sessionsForLogs = _sessionsService.GetSessionsForLogs(
-                ConfigurationManager.AppSettings.Get("UrlForSessionRequest"),
+                ConfigurationManager.AppSettings.Get("UriForSessionRequest"),
                 shiftStart,
                 shiftEnd)
                 .ToArray();
@@ -43,7 +43,7 @@ namespace FfsScheduleParser.Services
                 ShiftLength = shiftLength,
                 Sessions = shiftSessions,
                 Statistic = _documentsService.GetSessionsStatistic(shiftSessions, simulators),
-                ShiftLogs = _documentsService.GetShiftLogs(sessionsForLogs, shiftEnd)
+                ShiftLogs = _documentsService.GetTrainingLogs(sessionsForLogs, shiftEnd)
             };
         }
     }

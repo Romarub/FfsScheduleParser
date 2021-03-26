@@ -31,11 +31,11 @@ namespace FfsScheduleParser.Services
             return statisticTableRows;
         }
 
-        public IEnumerable<TrainingLog> GetShiftLogs(
+        public IEnumerable<TrainingLog> GetTrainingLogs(
             IReadOnlyCollection<TrainingSession> sessionsForLogs,
             DateTime shiftEnd)
         {
-            return TrainingLog.CreateShiftLogs(sessionsForLogs, shiftEnd);
+            return TrainingLog.CreateTrainingLogs(sessionsForLogs, shiftEnd);
         }
 
         public void WriteStatistic(IEnumerable<StatisticTableRow> statisticTableRows, string path)

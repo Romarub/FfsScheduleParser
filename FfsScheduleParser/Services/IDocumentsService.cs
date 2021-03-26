@@ -11,6 +11,6 @@ namespace FfsScheduleParser.Services
             IReadOnlyCollection<string> simulators);
         void WriteStatistic(IEnumerable<StatisticTableRow> statisticTableRows, string path);
         public void WriteLogs(IEnumerable<TrainingLog> logs, string path);
-        IEnumerable<TrainingLog> GetShiftLogs(IReadOnlyCollection<TrainingSession> sessionsForLogs, DateTime shiftEnd);
+        IEnumerable<TrainingLog> GetTrainingLogs(IReadOnlyCollection<TrainingSession> sessionsForLogs, DateTime shiftEnd);
     }
 }
