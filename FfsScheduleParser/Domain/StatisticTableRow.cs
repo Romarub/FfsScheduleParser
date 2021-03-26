@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FfsScheduleParser.Domain
 {
-    public class StatisticTableRow
+    public record StatisticTableRow
     {
         public string Simulator { get; set; }
         public int NumberOfSessions { get; set; }

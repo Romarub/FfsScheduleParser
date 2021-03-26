@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FfsScheduleParser.Domain
 {
-    public class TrainingSession
+    public record TrainingSession
     {
         [JsonProperty("startDate")]
         public DateTime StartDate { get; set; }

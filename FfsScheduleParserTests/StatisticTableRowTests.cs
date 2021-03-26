@@ -42,10 +42,7 @@ namespace FfsScheduleParserTests
             var result = StatisticTableRow.CreateStatisticTableRow(SimulatorName, sessions);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(expectedTableRow.Simulator, result.Simulator);
-            Assert.AreEqual(expectedTableRow.NumberOfSessions, result.NumberOfSessions);
-            Assert.AreEqual(expectedTableRow.PlannedTime, result.PlannedTime);
-            Assert.AreEqual(expectedTableRow.AchievedTime, result.AchievedTime);
+            Assert.AreEqual(expectedTableRow, result);
         }
     }
 }

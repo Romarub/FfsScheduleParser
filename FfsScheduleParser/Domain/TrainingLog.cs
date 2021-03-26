@@ -4,7 +4,7 @@ using CsvHelper.Configuration.Attributes;
 
 namespace FfsScheduleParser.Domain
 {
-    public class TrainingLog
+    public record TrainingLog
     {
         public string SessionNumber { get; set; }
         public string Company { get; set; }
@@ -19,7 +19,7 @@ namespace FfsScheduleParser.Domain
         [Ignore]
         public string Simulator { get; set; }
 
-        public static IEnumerable<TrainingLog> CreateShiftLogs(
+        public static IEnumerable<TrainingLog> CreateTrainingLogs(
             IReadOnlyCollection<TrainingSession> sessionsForLogs,
             DateTime shiftEnd)
         {

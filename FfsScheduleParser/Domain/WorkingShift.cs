@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FfsScheduleParser.Domain
 {
-    public class WorkingShift
+    public record WorkingShift
     {
         public DateTime StartDate { get; set; }
         public TimeSpan ShiftLength { get; set; }
