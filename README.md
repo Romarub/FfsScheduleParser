@@ -9,4 +9,4 @@ Parse json to csv for future use in VBA
 Таблица со статистикой заполняется в письме outlook. Журнал сессий за 24 часа распечатывается в word'e.
 
 Пример заполнения таблицы в outlook:
-https://youtu.be/R6ZaBoLqzuc
+<iframe width="560" height="315" src="https://www.youtube.com/embed/R6ZaBoLqzuc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
